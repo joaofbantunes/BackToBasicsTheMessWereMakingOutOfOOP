@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Back to basics: the mess we're making out of OOP</title>
+
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../css/theme/customized-white.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/all.min.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../lib/css/a11y-dark.css">
+
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/print/pdf.css' : '../css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h3>Back to basics:</h3>
+                <h3>The mess we're making out of OOP</h3>
+                <div class="presenter-info">
+                    <ul>
+                        <li><a href="https://antunes.dev"><i class="fas fa-user-circle"></i> João Antunes</a></li>
+                        <li>
+                            <a href="https://antunes.dev">
+                                <i class="fas fa-link"></i> antunes.dev
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://blog.codingmilitia.com">
+                                <i class="fas fa-rss-square"></i> blog.codingmilitia.com
+                            </a>
+                        </li>
+                        <li><a href="https://twitter.com/joaofbantunes"><i class="fab fa-twitter"></i>
+                                @joaofbantunes</a>
+                        </li>
+                    </ul>
+                    <img src="assets/mvp-logo.png">
+                </div>
+            </section>
+            <section>
+                <h3>Intro</h3>
+                <ul>
+                    <li class="fragment">Object oriented is (still) the most broadly used programming paradigm</li>
+                    <li class="fragment">But are we really doing OO?</li>
+                    <li class="fragment">I'd argue a lot of the "OO" code we see is actually procedural
+                        <ul>
+                            <li class="fragment">My experience, maybe you have been luckier</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Not my goal to:</h3>
+                <ul>
+                    <li>Show the "one true way"</li>
+                    <li>Compare paradigms (e.g. OO vs functional)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Overview</h3>
+                <ol>
+                    <li>The super controller</li>
+                    <li>The super service</li>
+                    <li>Individual request handlers</li>
+                    <li>OOifying</li>
+                    <li>Make use of type safety</li>
+                    <li>Bonus: minimize exceptions</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Sample: supermarket API</h3>
+                <ul>
+                    <li class="fragment">Common cart operations
+                        <ul>
+                            <li>Create cart</li>
+                            <li>Get cart info</li>
+                            <li>Add item to cart <span class="fragment">(our focus)</span></li>
+                            <li>Update item in cart</li>
+                            <li>Checkout cart</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">Code written in C#</li>
+                </ul>
+            </section>
+            <section>
+                <h2>The super controller</h2>
+                <img data-src="assets/superman.png">
+            </section>
+            <section>
+                <h3>Time to look at code!</h3>
+            </section>
+            <section>
+                <h3>SOLID Principles</h3>
+                <img data-src="assets/rip.png">
+            </section>
+            <section>
+                <h3>Everybody's preaching SOLID...</h3>
+                <p class="fragment">But are we doing it?</p>
+                <ul>
+                    <li class="fragment">(S)ingle responsibility principle</li>
+                    <li class="fragment">(O)pen-closed principle</li>
+                </ul>
+            </section>
+            <section>
+                <h2>The super service</h2>
+                <img data-src="assets/superman.png">
+            </section>
+            <section>
+                <h3>Back to the IDE!</h3>
+            </section>
+            <section>
+                <h3>SOLID Principles</h3>
+                <img data-src="assets/rip.png">
+            </section>
+            <section>
+                <h3>Still not SOLID?</h3>
+                <ul>
+                    <li class="fragment">(S)ingle responsibility principle</li>
+                    <li class="fragment">(O)pen-closed principle</li>
+                    <li class="fragment">(I)nterface segregation principle</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Individual request handlers</h2>
+            </section>
+            <section>
+                <h3>Back to code!</h3>
+                <ul>
+                    <li>Segregate the service responsibilities</li>
+                    <li>Reap benefits of this segregation </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Still not very OO, but:</h3>
+                <ul>
+                    <li class="fragment">No more giant <code>class</code> that does everything
+                        <ul>
+                            <li class="fragment">One operation/use case &rarr; one <code>class</code></li>
+                            <li class="fragment">Easier to unit test &rarr; stub/mock actual dependencies</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">Some typical OO patterns emerge
+                        <ul>
+                            <li class="fragment">E.g. implement crosscutting concerns with decorators</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>We can go further <span class="fragment" data-fragment-index="2">*</span></h3>
+                <ul>
+                    <li class="fragment" data-fragment-index="1">Ideally, we'd like our handlers to orchestrate each use
+                        case logic, not to do everything</li>
+                </ul>
+                <p class="fragment" data-fragment-index="2">* But if we didn't, this could be a nice middle ground
+            </section>
+            <section>
+                <h2>OOifying</h2>
+            </section>
+            <section>
+                <img data-src="assets/kevlinhenney-tweet.png">
+            </section>
+            <section>
+                <h3>Object oriented programming</h3>
+                <ul>
+                    <li class="fragment"><code>object = data + behavior</code> <span
+                            class="fragment">(oversimplifying)</span></li>
+                    <li class="fragment">If all we have are data classes and behavior classes, we're not taking
+                        advantage of the paradigm</li>
+                    <ul>
+                        <li class="fragment">Which doesn't mean we shouldn't have any</li>
+                    </ul>
+                </ul>
+            </section>
+            <section>
+                <h3>Thy code!</h3>
+                <ul>
+                    <li>Consolidate domain logic in the respective classes
+                        <ul>
+                            <li>Each class represents a specific concept that:
+                                <ul>
+                                    <li>Exposes the concept's capabilities</li>
+                                    <li>Enforces its invariants, keeping itself valid</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Keep use case orchestration in the handlers</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Some takeaways</h3>
+                <ul>
+                    <li class="fragment">Even better separation of concerns</li>
+                    <li class="fragment">More readable and cohesive components
+                        <ul>
+                            <li class="fragment">The handler code reads like steps of a recipe</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">Smaller units &rarr; simpler unit testing</li>
+                    <li class="fragment">Bonus: <code>null</code> object pattern</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Make use of type safety</h2>
+            </section>
+            <section>
+                Not really object oriented specific, but common in such languages
+            </section>
+            <section>
+                <h3>One last look at some code</h3>
+                <ul>
+                    <li>Use an <code>Optional</code> type instead of <code>null</code></li>
+                    <li>Use strongly typed identifiers</li>
+                    <li>Implement sum type to enforce handling of all expected scenarios</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Some takeaways</h3>
+                <ul>
+                    <li class="fragment"><code>Optional</code> forces us to think &rarr; <code>null</code> is easy to
+                        forget</li>
+                    <li class="fragment">Strongly typed ids &rarr; harder to mixup</li>
+                    <li class="fragment">Sum type &rarr; harder to forget to handle a new scenario</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Bonus: minimize exceptions</h2>
+            </section>
+            <section>
+                <li>I've been misusing exceptions</li>
+                <li class="fragment">Some business rule fail &rarr; throw</li>
+                <li class="fragment">Not good...</li>
+                <li class="fragment">Exceptions should be <strong>exceptional</strong></li>
+                <li class="fragment">What if we make the possible business errors obvious?</li>
+            </section>
+            <section>
+                <h3>Now a last look at some code (really)</h3>
+                <ul>
+                    <li>Return explicit success/error information</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Some takeaways</h3>
+                <ul>
+                    <li class="fragment">Handling the errors becomes explicit, forcing us to think about it</li>
+                    <li class="fragment">Not to replace all exceptions, just business specifics
+                        <ul>
+                            <li class="fragment">A method receives <code>null</code> on a non optional parameter -
+                                that's an exception, we're failing a pre-condition</li>
+                            <li class="fragment">Trying to buy more items than allowed, not really an exception, but a
+                                business error</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">Downside: the code becomes a little less linear</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Outro</h3>
+                <ul>
+                    <li class="fragment">Revisiting this subject reminded me when I first learned about OOP</li>
+                    <li class="fragment">
+                        Got me thinking why as soon as I started working, all of that went down the drain
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Outro</h3>
+                <p><strong>Q:</strong> Was all of this about DDD?</p>
+                <p class="fragment"><strong>A:</strong> No, DDD is much more than this (and paradigm agnostic)</p>
+            </section>
+            <section>
+                <h3>(Some) references (1/2)</h3>
+                <ul>
+                    <li><a
+                            href="https://en.wikipedia.org/wiki/Option_type">https://en.wikipedia.org/wiki/Option_type</a>
+                    </li>
+                    <li><a
+                            href="https://en.wikipedia.org/wiki/Domain-driven_design">https://en.wikipedia.org/wiki/Domain-driven_design</a>
+                    </li>
+                    <li><a
+                            href="https://andrewlock.net/using-strongly-typed-entity-ids-to-avoid-primitive-obsession-part-1/">https://andrewlock.net/using-strongly-typed-entity-ids-to-avoid-primitive-obsession-part-1/</a>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>(Some) references (2/2)</h3>
+                <ul>
+                    <li><a
+                            href="https://en.wikipedia.org/wiki/Option_type">https://en.wikipedia.org/wiki/Option_type</a>
+                    </li>
+                    <li><a
+                            href="https://en.wikipedia.org/wiki/Domain-driven_design">https://en.wikipedia.org/wiki/Domain-driven_design</a>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h3>Demo code and presentation</h3>
+                <p>
+                    <img data-src="assets/repository-qr-code.png" style="max-height: 40vh;">
+                </p>
+                <p>
+                    <a
+                        href="https://github.com/joaofbantunes/BackToBasicsTheMessWereMakingOutOfOOP">https://github.com/joaofbantunes/BackToBasicsTheMessWereMakingOutOfOOP</a>
+                </p>
+
+            </section>
+            <section>
+                <h1>Thanks!</h1>
+            </section>
+        </div>
+    </div>
+
+    <script src="../lib/js/head.min.js"></script>
+    <script src="../js/reveal.js"></script>
+
+    <script>
+        // More info about config & dependencies:
+        // - https://github.com/hakimel/reveal.js#configuration
+        // - https://github.com/hakimel/reveal.js#dependencies
+        Reveal.initialize({
+            dependencies: [
+                { src: '../plugin/markdown/marked.js' },
+                { src: '../plugin/markdown/markdown.js' },
+                { src: '../plugin/notes/notes.js', async: true },
+                { src: '../plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+            ]
+        });
+        Reveal.configure({ slideNumber: true, transition: 'none' });
+    </script>
+
+</body>
+
+</html>
