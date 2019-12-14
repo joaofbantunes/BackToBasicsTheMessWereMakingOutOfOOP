@@ -7,7 +7,8 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared
         public abstract TValue Value { get; }
         public abstract bool IsSuccess { get; }
 
-        public abstract TVisitResult Accept<TVisitResult>(IResultVisitor<TVisitResult> visitor);
+        public abstract TResult Accept<TVisitor, TResult>(TVisitor visitor)
+            where TVisitor : IResultVisitor<TResult>;
 
         public interface IResultVisitor<TVisitResult>
         {
@@ -31,7 +32,7 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared
 
             public override bool IsSuccess => true;
 
-            public override TVisitResult Accept<TVisitResult>(IResultVisitor<TVisitResult> visitor)
+            public override TVisitResult Accept<TResultVisitor, TVisitResult>(TResultVisitor visitor)
                 => visitor.Visit(this);
 
             public static Success New(TValue value) => new Success(value);
@@ -60,7 +61,7 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared
 
                 public static NotFound New(string message) => new NotFound(message);
 
-                public override TVisitResult Accept<TVisitResult>(IResultVisitor<TVisitResult> visitor)
+                public override TVisitResult Accept<TResultVisitor, TVisitResult>(TResultVisitor visitor)
                     => visitor.Visit(this);
 
                 public override Result<TOtherValue>.Error AsErrorOf<TOtherValue>()
@@ -72,34 +73,32 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared
                 private Invalid(string message) : base(message)
                 {
                 }
-
-                public string Message { get; }
-
+                
                 public static Invalid New(string message) => new Invalid(message);
 
-                public override TVisitResult Accept<TVisitResult>(IResultVisitor<TVisitResult> visitor)
+                public override TVisitResult Accept<TResultVisitor, TVisitResult>(TResultVisitor visitor)
                     => visitor.Visit(this);
-                
+
                 public override Result<TOtherValue>.Error AsErrorOf<TOtherValue>()
                     => Result<TOtherValue>.Error.Invalid.New(Message);
             }
 
-//        public sealed class Unexpected : Error
-//        {
-//            private Unexpected(string message) : base(message)
+//            public sealed class Unexpected : Error
 //            {
+//                private Unexpected(string message) : base(message)
+//                {
+//                }
+//
+//                public string Message { get; }
+//
+//                public static Unexpected New(string message) => new Unexpected(message);
+//
+//                public override TVisitResult Accept<TResultVisitor, TVisitResult>(TResultVisitor visitor)
+//                    => visitor.Visit(this);
+//
+//                public override Result<TOtherValue>.Error AsErrorOf<TOtherValue>()
+//                    => Result<TOtherValue>.Error.Unexpected.New(Message);
 //            }
-//
-//            public string Message { get; }
-//
-//            public static Unexpected New(string message) => new Unexpected(message);
-//
-//            public override TVisitResult Accept<TVisitResult>(IResultVisitor<TVisitResult> visitor)
-//                => visitor.Visit(this);
-//
-//            public override Result<TOtherValue>.Error AsErrorOf<TOtherValue>()
-//                => Result<TOtherValue>.Error.Unexpected.New(Message);
-//        }
         }
     }
 }

@@ -8,9 +8,11 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Controllers
     public static class ResultExtensions
     {
         public static IActionResult ToActionResult<TValue>(this Result<TValue> result)
-            => result.Accept(new ResultMappingVisitor<TValue, TValue>()).Result;
+            => result.Accept<ResultMappingVisitor<TValue, TValue>, ActionResult<TValue>>(
+                new ResultMappingVisitor<TValue, TValue>()).Result;
         
         public static ActionResult<TModel> ToActionResult<TValue, TModel>(this Result<TValue> result, Func<TValue, TModel> valueMapper)
-            => result.Accept(new ResultMappingVisitor<TValue, TModel>(valueMapper));
+            => result.Accept<ResultMappingVisitor<TValue, TModel>, ActionResult<TModel>>(
+                new ResultMappingVisitor<TValue, TModel>(valueMapper));
     }
 }

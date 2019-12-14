@@ -5,7 +5,7 @@ using TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared;
 
 namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Filters
 {
-    public class ResultErrorMappingVisitor<TValue, TModel> : Result<TValue>.Error.IResultVisitor<ActionResult<TModel>>
+    public struct ResultErrorMappingVisitor<TValue, TModel> : Result<TValue>.Error.IResultVisitor<ActionResult<TModel>>
     {
         public ActionResult<TModel> Visit(Result<TValue>.Success result)
         => throw new NotImplementedException("No success should get here!");

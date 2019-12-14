@@ -43,6 +43,9 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Filters
         }
         
         private static ActionResult<TValue> MapDomainException<TValue>(DomainException<TValue> exception)
-            => exception.ErrorDetail.Accept(new ResultErrorMappingVisitor<TValue, TValue>());
+            => exception
+                .ErrorDetail
+                .Accept<ResultErrorMappingVisitor<TValue, TValue>, ActionResult<TValue>>(
+                    new ResultErrorMappingVisitor<TValue, TValue>());
     }
 }

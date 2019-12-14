@@ -5,7 +5,7 @@ using TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared;
 
 namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Controllers
 {
-    public class ResultMappingVisitor<TValue, TModel> : Result<TValue>.Error.IResultVisitor<ActionResult<TModel>>
+    public struct ResultMappingVisitor<TValue, TModel> : Result<TValue>.Error.IResultVisitor<ActionResult<TModel>>
     {
         private readonly Func<TValue, TModel> _valueMapper;
 
