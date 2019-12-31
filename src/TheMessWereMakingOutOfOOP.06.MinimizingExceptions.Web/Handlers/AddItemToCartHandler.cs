@@ -54,7 +54,7 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Handlers
 
             _cartRepository.Save(cart);
             
-            _listener.OnAdded(cart, item, cartItemResult.Value);
+            _listener.OnAdded(cart, item, ((Result<CartItem>.Success)cartItemResult).Value);
 
             return Result<Unit>.Success.New(Unit.Instance);
         }

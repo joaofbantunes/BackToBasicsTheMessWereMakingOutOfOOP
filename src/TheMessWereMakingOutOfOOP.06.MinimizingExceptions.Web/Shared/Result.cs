@@ -4,7 +4,6 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared
 {
     public abstract class Result<TValue>
     {
-        public abstract TValue Value { get; }
         public abstract bool IsSuccess { get; }
 
         public abstract TResult Accept<TVisitor, TResult>(TVisitor visitor)
@@ -28,7 +27,7 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared
                 Value = value;
             }
 
-            public override TValue Value { get; }
+            public TValue Value { get; }
 
             public override bool IsSuccess => true;
 
@@ -46,9 +45,7 @@ namespace TheMessWereMakingOutOfOOP._06.MinimizingExceptions.Web.Shared
             }
 
             public string Message { get; }
-
-            public override TValue Value => throw new DomainException<TValue>(this);
-
+            
             public override bool IsSuccess => false;
 
             public abstract Result<TOtherValue>.Error AsErrorOf<TOtherValue>();
