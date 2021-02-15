@@ -4,6 +4,8 @@ This repository contains the demo code and slides for my presentation titled "Ba
 
 Feel free to use the issues to ask questions (or suggest improvements). For other ways of contact, you can check out my website at [https://antunes.dev](https://antunes.dev).
 
+**Note:** there's an updated version of the presentation/samples at https://github.com/joaofbantunes/OOPsIDidItAgain.
+
 ## Abstract
 
 Object oriented is (still) the most broadly used programming paradigm. The problem is, most of the times, even though we’re using an OO programming language (or primarily OO, considering languages tend to be multi-paradigm) our code is more procedural than object oriented, not taking advantage of this programming style’s teachings, along with what the languages offer us in this regard.
